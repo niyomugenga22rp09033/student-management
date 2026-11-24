@@ -1,11 +1,13 @@
+FROM node:22-alpine
 
-# Use the official lightweight Nginx image
-FROM nginx:alpine
+WORKDIR /app
 
-# Copy all HTML files into the Nginx web directory
-COPY index.html /usr/share/nginx/html/index.html
-COPY hello.html /usr/share/nginx/html/hello.html
-COPY contact.html /usr/share/nginx/html/contact.html
+COPY package*.json ./
 
-# Document the web server port
-EXPOSE 80
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
